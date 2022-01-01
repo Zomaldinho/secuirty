@@ -38,3 +38,10 @@ export const validateActionValidator = () => {
     check("actionName").exists().withMessage("actionName is required"),
   ]
 }
+
+export const userActionValidator = () => {
+  return [
+    check("actionName").exists().withMessage("actionName is required"),
+    check("userId").exists().withMessage("user id is required"),
+  ]
+}
