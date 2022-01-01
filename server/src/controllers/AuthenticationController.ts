@@ -48,7 +48,10 @@ export class AuthenticationController {
 
   logout = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      
+      const { refreshToken } = req.body
+      const userId = await this.tokenHelper.verifyToken(refreshToken, 'refresh')
+      await this.tokenHelper.removeToken(userId)
+      res.status(200).send({ message: 'user is logged out' })
     } catch (error) {
       next(error)
     }
