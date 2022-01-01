@@ -34,6 +34,18 @@ export class AuthenticationController {
     }
   }
 
+  refreshToken = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { refreshToken } = req.body
+      const userId = await this.tokenHelper.verifyToken(refreshToken, 'refresh')
+      const accessToken = await this.tokenHelper.signToken(+userId, 'access')
+      const refToken = await this.tokenHelper.signToken(+userId, 'refresh')
+      res.status(200).send({ accessToken: accessToken, refreshToken: refToken })
+    } catch (error) {
+      next(error)
+    }
+  }
+
   logout = async (req: Request, res: Response, next: NextFunction) => {
     try {
       
