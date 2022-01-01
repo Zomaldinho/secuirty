@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { ActionController } from './controllers/ActionController';
 import { AuthenticationController } from './controllers/AuthenticationController';
 import { AuthorizationController } from './controllers/AuthorizationController';
 import { TokenHelper } from './helpers/TokenHelper';
@@ -8,6 +9,7 @@ import {
   loginValidator,
   refreshTokenValidator,
   registerValidator,
+  userActionValidator,
   validateActionValidator,
 } from './validators/RequestsBodyValidator';
 
@@ -17,6 +19,7 @@ const { login, logout, refreshToken, register } = new AuthenticationController(
   new TokenHelper()
 );
 const { validatePermission } = new AuthorizationController();
+const { addAction, addUserAction } = new ActionController();
 
 router.post('/register', registerValidator(), ReqBodyValidatior, register);
 router.post('/login', loginValidator(), ReqBodyValidatior, login);
@@ -33,4 +36,18 @@ router.post(
   ReqBodyValidatior,
   isLoggedIn,
   validatePermission
+);
+router.post(
+  '/add-action',
+  validateActionValidator(),
+  ReqBodyValidatior,
+  isLoggedIn,
+  addAction
+);
+router.post(
+  '/add-user-action',
+  userActionValidator(),
+  ReqBodyValidatior,
+  isLoggedIn,
+  addUserAction
 );
