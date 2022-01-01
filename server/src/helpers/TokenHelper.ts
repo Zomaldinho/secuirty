@@ -40,6 +40,10 @@ export class TokenHelper implements ITokenHelper {
     return userId
   }
 
+  removeToken = async (userId: string): Promise<void> => {
+    await this.redisClient.unlink(userId)
+  }
+
   getSecret = (type: string) => {
     const isAccessToken = type == 'access';
     const secret = isAccessToken
