@@ -41,7 +41,7 @@ export class TokenHelper implements ITokenHelper {
   }
 
   removeToken = async (userId: string): Promise<void> => {
-    await this.redisClient.unlink(userId)
+    await this.redisClient.del(userId)
   }
 
   getSecret = (type: string) => {
