@@ -10,8 +10,8 @@ export const isLoggedIn = async (
 ) => {
   try {
     let token: string = "";
-    if (req.headers && req.headers.Authorization) {
-      token = (req.headers.Authorization as string).split(" ")[1];
+    if (req.headers && req.headers.authorization) {
+      token = (req.headers.authorization as string).split(" ")[1];
     } else {
       return res.status(401).send({ message: 'not authenticated' })
     }
