@@ -1,18 +1,21 @@
-import { config } from 'dotenv';
+require('dotenv').config();
 import express from 'express';
 import cors from 'cors';
+import { errorHandler } from './middlewares/ErrorHandler';
+import { router } from './routes';
 
-class App {
+export class App {
   public app: express.Application;
   constructor() {
     this.app = express();
     this.initializeMiddlewares();
-    config();
   }
 
   initializeMiddlewares() {
     this.app.use(express.json());
-    this.app.use(cors);
+    this.app.use(cors());
+    this.app.use(router);
+    this.app.use(errorHandler);
   }
 
   public listen() {
