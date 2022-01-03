@@ -31,8 +31,8 @@ export class TokenHelper implements ITokenHelper {
   verifyToken = async (token: string, type: string) => {
     const { isAccessToken, secret } = this.getSecret(type);
     const payload = jwt.verify(token, secret!) as JwtPayload
-    if(!payload.aud) throw new Error('authentication faild')
-    const userId = payload.aud as string;
+    if(!payload.iss) throw new Error('authentication faild')
+    const userId = payload.iss as string;
     if(!isAccessToken){
       const storedRefreshToken = await this.redisClient.get(userId)
       if(storedRefreshToken != token) throw new Error('authentication faild')
