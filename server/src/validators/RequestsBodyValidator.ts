@@ -33,6 +33,12 @@ export const refreshTokenValidator = () => {
   ]
 }
 
+export const invalidateTokenValidator = () => {
+  return [
+    check("userId").exists().withMessage("userId is required"),
+  ]
+}
+
 export const validateActionValidator = () => {
   return [
     check("actionName").exists().withMessage("actionName is required"),

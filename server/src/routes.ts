@@ -6,6 +6,7 @@ import { TokenHelper } from './helpers/TokenHelper';
 import { isLoggedIn } from './middlewares/isLoggedIn';
 import { ReqBodyValidatior } from './middlewares/ReqBodyValidator';
 import {
+  invalidateTokenValidator,
   loginValidator,
   refreshTokenValidator,
   registerValidator,
@@ -15,15 +16,21 @@ import {
 
 export const router = Router();
 
-const { login, logout, refreshToken, register } = new AuthenticationController(
-  new TokenHelper()
-);
+const { login, logout, refreshToken, register, invalidate } =
+  new AuthenticationController(new TokenHelper());
 const { validatePermission } = new AuthorizationController();
 const { addAction, addUserAction } = new ActionController();
 
 router.post('/register', registerValidator(), ReqBodyValidatior, register);
 router.post('/login', loginValidator(), ReqBodyValidatior, login);
 router.post('/logout', refreshTokenValidator(), ReqBodyValidatior, logout);
+router.post(
+  '/invalidate',
+  invalidateTokenValidator(),
+  ReqBodyValidatior,
+  isLoggedIn,
+  invalidate
+);
 router.post(
   '/refresh-token',
   refreshTokenValidator(),

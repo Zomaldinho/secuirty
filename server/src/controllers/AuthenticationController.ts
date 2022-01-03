@@ -56,4 +56,14 @@ export class AuthenticationController {
       next(error)
     }
   }
+
+  invalidate = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userId } = req.body
+      await this.tokenHelper.removeToken(userId)
+      res.status(200).send({ message: 'session is invalidated' })
+    } catch (error) {
+      next(error)
+    }
+  }
 }
