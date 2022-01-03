@@ -15,7 +15,7 @@ export const isLoggedIn = async (
     } else {
       return res.status(401).send({ message: 'not authenticated' })
     }
-    const userId = new TokenHelper().verifyToken(token, 'access')
+    const userId = await new TokenHelper().verifyToken(token, 'access')
     const user = await User.findOne({ where: { id: +userId } })
     if(!user) return res.status(404).send('user is not found');
     (req as AuthRequest).user = user

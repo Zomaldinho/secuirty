@@ -26,8 +26,8 @@ export class AuthenticationController {
       if (!user) throw new Error('wrong credentials');
       const isPasswordCorrect = await bcrypt.compare(password, user.password);
       if (!isPasswordCorrect) throw new Error('wrong credentials');
-      const accessToken = this.tokenHelper.signToken(user.id, 'access');
-      const refreshToken = this.tokenHelper.signToken(user.id, 'refresh');
+      const accessToken = await this.tokenHelper.signToken(user.id, 'access');
+      const refreshToken = await this.tokenHelper.signToken(user.id, 'refresh');
       return res.status(200).send({ accessToken, refreshToken });
     } catch (error) {
       next(error)
