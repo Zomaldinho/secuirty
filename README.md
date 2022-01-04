@@ -18,7 +18,7 @@ $ git clone https://github.com/Zomaldinho/secuirty.git
 $ cd server
 $ npm install
 ```
-After installation make sure you have the `.env` file in the server folder then run `$ npm start` to start the server at port 3000 and make sure that the following message are shown in the terminal `Server is listening on port 3000`. if not, restart the server by pressing CTRL+C and `$ npm start` again. <br/>
+After installation make sure you have the `.env` file in the server folder then run `$ npm start` to start the server at port 3001 and make sure that the following message are shown in the terminal `Server is listening on port 3001`. if not, restart the server by pressing CTRL+C and `$ npm start` again. <br/>
 
 
 ## Usage
