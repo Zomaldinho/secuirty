@@ -24,63 +24,69 @@ After installation make sure you have the `.env` file in the server folder then 
 ## Usage
 This app has 8 endpoints user to authenticate and authorize users, you can use them as following :- <br/>
 * **Register Endpoint** : `POST /register/` used for creating a user
-  ### Request Body Params
+  #### Request Body Params
      name: string, <br/>
      email: string, (should be unique)<br/>
      password: string, (min 6 chars) <br/>
-  ### Response
+  #### Response
     {
       message: "user is registered. please login"
     }
 
 * **Login Endpoint** : `POST /login/` used for loggin in a user
-  ### Request Body Params
+  #### Request Body Params
      email: string, <br/>
      password: string, (min 6 chars) <br/>
-  ### Response
+  #### Response
     {
       accessToken: string, 
       refreshToken: string
     }
 
 * **Refresh Token Endpoint** : `POST /refresh-token/` used to refresh access token when it expires
-  ### Request Body Params
+  #### Request Body Params
      accessToken: string, <br/>
-  ### Response
+  #### Response
     {
       accessToken: string, 
       refreshToken: string
     }
 
 * **Logout Endpoint** : `POST /logout/` used to logout user 
-  ### Request Body Params
+  #### Request Body Params
      accessToken: string, <br/>
-  ### Response
+  #### Response
     { message: 'user is logged out' }
 
+* **Invalidate Endpoint** : `POST /invalidate/` used to logout user 
+  #### Request Body Params
+     userId: number, <br/>
+  #### Response
+    { message: 'session is invalidated' }
+
 * **Validate Action Endpoint** : `POST /validate-action/` used to validate if user can perform an action or not
-  ### Request Body Params
+  #### Request Body Params
      actionName: string, <br/>
-  ### Headers
+  #### Headers
      Authorization: 'Bearer ' + accessToken <br/>
-  ### Response
+  #### Response
     { isAuthorized: bolean }
 
 * **Add Action Endpoint** : `POST /add-action/` used to add a new action to Actions table
-  ### Request Body Params
+  #### Request Body Params
      actionName: string, <br/>
-  ### Headers
+  #### Headers
      Authorization: 'Bearer ' + accessToken <br/>
-  ### Response
+  #### Response
     { message: 'action is created' }
 
 * **Add User Action Endpoint** : `POST /add-user-action/` used to add an action to a specific user table
-  ### Request Body Params
+  #### Request Body Params
      actionName: string, <br/>
      userId: number, <br/>
-  ### Headers
+  #### Headers
      Authorization: 'Bearer ' + accessToken <br/>
-  ### Response
+  #### Response
     { message: 'user action is created' }
 
 <br/>
